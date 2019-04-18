@@ -10,11 +10,12 @@ class NumberOneSongs::CommandLineInteface
   end
   
   def display_songs
-    NumberOneSongs::Song.all[0,1].each do |song, index|
-      puts "#{song.number}"
-      # puts "#{song.number}. #{song.single} by #{song.artist}"
-      # puts "Reached Number One: #{song.reached_number_one}"
-      # puts "Weeks At Number One: #{song.weeks_at_number_one}"
+    NumberOneSongs::Song.all.each do |song|
+      # if song.number.length > 0 
+        puts "\n#{song.number}. #{song.single} by #{song.artist}"
+        puts "Reached Number One: #{song.reached_number_one}"
+        puts "Weeks At Number One: #{song.weeks_at_number_one}"
+      # end
     end
   end
 
