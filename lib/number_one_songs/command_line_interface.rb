@@ -31,7 +31,7 @@ class NumberOneSongs::CommandLineInteface
 
   def songs_by_year(input)
     puts "Displaying the number one songs for #{input}."
-    NumberOneSongs::Song.all.each_with_index do |song, i|
+    NumberOneSongs::Song.all.each_with_index(1) do |song, i|
       if song.date.include?(input)
         puts "#{i}. #{song.date}: #{song.single} by #{song.artist}"
       end
