@@ -21,7 +21,7 @@ class NumberOneSongs::Scraper
           date: song.css("td[2]").text.strip,
           artist: song.css("td[3]").text.strip,
           single: song.css("td[4]").text.strip,
-          weeks_at_number_one: song.css("td[6]").text.strip
+          weeks_at_number_one: song.css("td[5]").text.strip
         }
       end
     

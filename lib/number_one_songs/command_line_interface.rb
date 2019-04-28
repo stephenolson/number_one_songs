@@ -11,16 +11,43 @@ class NumberOneSongs::CommandLineInteface
     input = gets.strip
     
     case
-      # when input.downcase == "decade"
-      #   decade
+      when input.downcase == "artist"
+        artist
       when input.downcase == "year"
         year
     end
   end
 
-  # def decade
-  
-  # end
+  def artist
+    puts "Please enter the artist that you wish to see."
+    
+    input = gets.strip
+    songs_by_artist(input)
+  end
+
+  def songs_by_artist(input)
+    puts "Displaying the number one songs by #{input}."
+    results = []
+    NumberOneSongs::Song.all.each do |song|
+      if song.artist.downcase.include?(input.downcase)
+        results << song
+      end
+    end
+    
+    results.each_with_index do |results,i|
+      puts "#{i+1}. #{results.single} by #{results.artist}"
+    end
+
+    more_info(results)
+  end
+
+  def more_info(results)
+    puts "\nPlease enter the song you want more information on.\n"
+    input = gets.strip
+
+    song = results[input.to_i-1]
+    display_song(song)
+  end
 
   def year
     puts "Please enter the year between 1958 - 2019 that you wish to see."
@@ -30,21 +57,25 @@ class NumberOneSongs::CommandLineInteface
   end
 
   def songs_by_year(input)
-    puts "Displaying the number one songs for #{input}."
-    NumberOneSongs::Song.all.each_with_index(1) do |song, i|
-      if song.date.include?(input)
-        puts "#{i}. #{song.date}: #{song.single} by #{song.artist}"
-      end
-    end
-  end
-  
-  def display_songs
+    puts "Displaying the number one songs of #{input}."
+    results = []
     NumberOneSongs::Song.all.each do |song|
-      if song.number.length > 0 
-        puts "\n#{song.date}: #{song.single} by #{song.artist}"
-        # puts "Weeks At Number One: #{song.weeks_at_number_one}"
+      if song.date.include?(input)
+        results << song
       end
     end
+
+    results.each_with_index do |results,i|
+      puts "#{i+1}. #{results.date} #{results.single} by #{results.artist}" 
+    end
+
+    more_info(results)
+  end
+
+  def display_song(song)
+    puts "\n#{song.date}"
+    puts "#{song.single} by #{song.artist}"
+    puts "#{song.weeks_at_number_one} weeks at number one."
   end
 
 end
