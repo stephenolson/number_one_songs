@@ -11,22 +11,30 @@ class NumberOneSongs::Song
   end
   
   def initialize(song_hash)
-
     song_hash.each do |key, value| 
       self.send(:"#{key}=", value)
     end
     @@all << self
-
   end
   
   def self.all
     @@all
   end
 
-
   def self.find_by_artist(artist)
-    self.all.select { |results| results.values == artist }
+    self.all.select {|song| song.artist.include?(artist)}
   end
+
+
+  # def self.find_by_artist(artist)
+  #   results = []
+  #   self.all.collect do |song| 
+  #     if song.artist.include?(artist) 
+  #       results << song
+  #     end
+  #   end
+  #   return results
+  # end
 
   # def self.find_by_artist
   #   songs.collect {|song| song.artist}
